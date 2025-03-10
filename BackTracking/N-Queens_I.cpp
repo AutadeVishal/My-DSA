@@ -21,6 +21,7 @@ public:
 void solve(int &n,vector<vector<string>>&ans,vector<vector<char>>&currans,int row){
     if(row>=n){
          vector<string> solution;
+        //currans is in char format so convert it to string format in solution variable
             for (int i = 0; i < n; i++) {
                 solution.push_back(string(currans[i].begin(), currans[i].end()));
             }
@@ -28,14 +29,11 @@ void solve(int &n,vector<vector<string>>&ans,vector<vector<char>>&currans,int ro
             return;
     }
     for(int i=0;i<n;i++){
-        bool putinthisrow=false;
      if(issafe(currans,row,i,n)){
-        putinthisrow=true;
             currans[row][i]='Q';
             solve(n,ans,currans,row+1);
            currans[row][i]='.';
         }
-     
     }
 }
     vector<vector<string>> solveNQueens(int n) {
