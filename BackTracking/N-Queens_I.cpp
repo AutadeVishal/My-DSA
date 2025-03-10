@@ -28,13 +28,15 @@ void solve(int &n,vector<vector<string>>&ans,vector<vector<char>>&currans,int ro
             return;
     }
     for(int i=0;i<n;i++){
+        bool putinthisrow=false;
      if(issafe(currans,row,i,n)){
+        putinthisrow=true;
             currans[row][i]='Q';
             solve(n,ans,currans,row+1);
            currans[row][i]='.';
         }
         //Below Code Commented Becouse Question Expects only Solutions having nonEmpty Strings 
-       /*if(row==n-1 && i==n-1){
+       /*if(!putinthisrow){
          vector<string> solution;
             for (int i = 0; i < n; i++) {
                 solution.push_back(string(currans[i].begin(), currans[i].end()));
