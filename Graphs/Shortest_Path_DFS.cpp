@@ -1,35 +1,29 @@
 class Solution {
-  public:
-  void findpath(vector<vector<int>>&adj,int src,int &dest,int count,int &shortestcount,vector<bool>&visited){
-     
-      if(src==dest){
-          shortestcount=min(count,shortestcount);
-          return ;
-      }
-       visited[src]=true;
-         for (int neighbor : adj[src]) {
+public:
+    void dfs(vector<vector<int>>& adj, int node, int count, vector<int>& dist, vector<bool>& visited) {
+       
+        if (count >= dist[node]) return;
+        dist[node] = count;
+        visited[node] = true;
+        for (int neighbor : adj[node]) {
             if (!visited[neighbor]) {
-                findpath(adj, neighbor, dest, count + 1, shortestcount, visited);
+                dfs(adj, neighbor, count + 1, dist, visited);
             }
         }
-       visited[src]=false;
-      
-  }
-    // Function to find the shortest path from source to all other nodes
+
+        visited[node] = false; 
+    }
+
     vector<int> shortestPath(vector<vector<int>>& adj, int src) {
-          vector<int> ans(adj.size(), INT_MAX);
-        
-        for (int i = 0; i < adj.size(); i++) {
-            if (i == src) {
-                ans[i] = 0;
-                continue;
-            }
-            vector<bool> visited(adj.size(), false);
-            int shortestcount = INT_MAX;
-            findpath(adj, src, i, 0, shortestcount, visited);
-            ans[i] = (shortestcount == INT_MAX) ? -1 : shortestcount;
+        int n = adj.size();
+        vector<int> dist(n, INT_MAX);  
+        vector<bool> visited(n, false);  
+
+        dfs(adj, src, 0, dist, visited);
+        for (int i = 0; i < n; i++) {
+            if (dist[i] == INT_MAX) dist[i] = -1;
         }
-        
-        return ans;
+
+        return dist;
     }
 };
