@@ -1,13 +1,14 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>& adj, int node, int count, vector<int>& dist, vector<bool>& visited) {
+    void dfs(vector<vector<int>>& adj, int node, int &count, vector<int>& dist, vector<bool>& visited) {
        
         if (count >= dist[node]) return;
         dist[node] = count;
         visited[node] = true;
         for (int neighbor : adj[node]) {
             if (!visited[neighbor]) {
-                dfs(adj, neighbor, count + 1, dist, visited);
+                dfs(adj, neighbor, ++count, dist, visited);
+                count--;
             }
         }
 
@@ -18,8 +19,8 @@ public:
         int n = adj.size();
         vector<int> dist(n, INT_MAX);  
         vector<bool> visited(n, false);  
-
-        dfs(adj, src, 0, dist, visited);
+        int count=0;
+        dfs(adj, src, count, dist, visited);
         for (int i = 0; i < n; i++) {
             if (dist[i] == INT_MAX) dist[i] = -1;
         }
