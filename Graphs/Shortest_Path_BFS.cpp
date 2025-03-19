@@ -3,6 +3,7 @@ class Solution {
   void solve(vector<vector<int>>& adj,int src,vector<bool>&visited,int &count,vector<int>&ans){
       queue<int>q;
       q.push(src);
+    visited[src]=true;
       while(!q.empty()){
          int qsize=q.size();
           for(int i=0;i<qsize;i++){
