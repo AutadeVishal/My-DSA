@@ -6,12 +6,12 @@ while(!q.empty()){
     q.pop();
     if(curr==dest){
         int i=curr;
-        while(i!=src){
+        while(i!=-1){
             ans.push_back(i);
             i=parent[i];
         }
         ans.push_back(src);
-        ans.sort(ans.begin(),ans.end());
+       reverse(ans.begin(),ans.end());
         return;
     }
     visited[curr]=true;
