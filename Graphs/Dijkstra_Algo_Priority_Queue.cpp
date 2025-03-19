@@ -16,8 +16,8 @@ public:
 
         while (!s.empty()) {
             auto it = s.begin();
-            int curr = it->first;
-            int dist = it->second;
+            int curr = it->second;
+            int dist = it->first;
             s.erase(it);
             for (auto& nbor : adj[curr]) {
                 int nextNode = nbor.second;
