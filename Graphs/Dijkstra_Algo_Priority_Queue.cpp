@@ -4,13 +4,15 @@ public:
         unordered_map<int, vector<pair<int, int>>> adj;
         for (const auto& edge : edges) {
             int u = edge[0], v = edge[1], weight = edge[2];
-            adj[u].push_back({v, weight});
+            adj[u].push_back({ weight,v});
+            
         }
 
         vector<int> distances(V, INT_MAX);
       set<pair<int, int>> s;
         distances[0] = 0;
         s.insert({0,0});
+        //its weight,node not node,weight to reduce redundancy of calculation where long distance might be updated and again short one is found
 
         while (!s.empty()) {
             auto it = s.begin();
@@ -18,14 +20,14 @@ public:
             int dist = it->second;
             s.erase(it);
             for (auto& nbor : adj[curr]) {
-                int nextNode = nbor.first;
-                int edgeWeight = nbor.second;
+                int nextNode = nbor.second;
+                int edgeWeight = nbor.first;
                 if (distances[curr] + edgeWeight < distances[nextNode]) {
                     if(distances[nextNode]!=INT_MAX){
-                        s.erase({nextNode,distances[nextNode]});
+                        s.erase({distances[nextNode],nextNode});
                     }
                     distances[nextNode] = distances[curr] + edgeWeight;
-                    s.insert({nextNode,distances[nextNode]});
+                    s.insert({distances[nextNode],nextNode});
                 }
             }
         }
