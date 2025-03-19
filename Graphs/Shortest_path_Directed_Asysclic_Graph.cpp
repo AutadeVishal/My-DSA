@@ -33,17 +33,13 @@ for (int i = 0; i < edges.size(); i++) {
     //Keep SRC as 0
     distances[0]=0;
     
-    //Make Visited again false
-    for(int i=0;i<visited.size();i++){
-        visited[i]=false;
-    }
+  
     
     //Update Distances based on Stack
     while(!st.empty()){
         int curr=st.top();
         st.pop();
-        if(!visited[curr] && distances[curr]!=INT_MAX){
-            visited[curr]=true;
+        if(distances[curr]!=INT_MAX){
             for(auto nbor:adj[curr]){
                distances[nbor.first]=min(adj[curr][nbor.first]+distances[curr],distances[nbor.first]);
             }
