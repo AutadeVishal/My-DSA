@@ -4,25 +4,28 @@ public:
         unordered_map<int, vector<pair<int, int>>> adj;
         for (const auto& edge : edges) {
             int u = edge[0], v = edge[1], weight = edge[2];
-            adj[u].push_back({ weight,v});
+            adj[u].push_back({v, weight});
         }
 
         vector<int> distances(V, INT_MAX);
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+      set<pair<int, int>> s;
         distances[0] = 0;
-        q.push({0,0});
+        s.insert({0,0});
 
-        while (!q.empty()) {
-            int curr = q.top().second;
-            int dist=q.top().first;
-            q.pop();
-
+        while (!s.empty()) {
+            auto it = s.begin();
+            int curr = it->first;
+            int dist = it->second;
+            s.erase(it);
             for (auto& nbor : adj[curr]) {
-                int nextNode = nbor.second;
-                int edgeWeight = nbor.first;
+                int nextNode = nbor.first;
+                int edgeWeight = nbor.second;
                 if (distances[curr] + edgeWeight < distances[nextNode]) {
+                    if(distances[nextNode]!=INT_MAX){
+                        s.erase({nextNode,distances[nextNode]});
+                    }
                     distances[nextNode] = distances[curr] + edgeWeight;
-                    q.push({distances[nextNode],nextNode});
+                    s.insert({nextNode,distances[nextNode]});
                 }
             }
         }
