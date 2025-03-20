@@ -1,33 +1,30 @@
+
+
 class Solution {
 public:
     vector<int> shortestPath(int V, int E, vector<vector<int>>& edges) {
         unordered_map<int, vector<pair<int, int>>> adj;
         for (const auto& edge : edges) {
             int u = edge[0], v = edge[1], weight = edge[2];
-            adj[u].push_back({ weight,v});
-            
+            adj[u].push_back({v, weight});
         }
 
         vector<int> distances(V, INT_MAX);
-      set<pair<int, int>> s;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
         distances[0] = 0;
-        s.insert({0,0});
-        //its weight,node not node,weight to reduce redundancy of calculation where long distance might be updated and again short one is found
+        q.push({0,0});
 
-        while (!s.empty()) {
-            auto it = s.begin();
-            int curr = it->second;
-            int dist = it->first;
-            s.erase(it);
+        while (!q.empty()) {
+            int curr = q.top().second;
+            int dist=q.top().first;
+            q.pop();
+
             for (auto& nbor : adj[curr]) {
-                int nextNode = nbor.second;
-                int edgeWeight = nbor.first;
+                int nextNode = nbor.first;
+                int edgeWeight = nbor.second;
                 if (distances[curr] + edgeWeight < distances[nextNode]) {
-                    if(distances[nextNode]!=INT_MAX){
-                        s.erase({distances[nextNode],nextNode});
-                    }
                     distances[nextNode] = distances[curr] + edgeWeight;
-                    s.insert({distances[nextNode],nextNode});
+                    q.push({distances[nextNode],nextNode});
                 }
             }
         }
