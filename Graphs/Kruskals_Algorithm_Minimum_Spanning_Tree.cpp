@@ -15,6 +15,7 @@ class Solution {
         for (int i = 0; i < V; i++) {
             for (auto j : adj[i]) {
                 edges.push({j[1], i, j[0]}); 
+              //weight,currnode,childnode
             }
         }
 
