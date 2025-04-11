@@ -18,7 +18,7 @@ public:
             int curr = q.top().second;
             int dist=q.top().first;
             q.pop();
-
+            if(dist>distances[curr]) continue;
             for (auto& nbor : adj[curr]) {
                 int nextNode = nbor.first;
                 int edgeWeight = nbor.second;
