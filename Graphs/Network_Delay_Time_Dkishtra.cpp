@@ -14,6 +14,7 @@ public:
             q.pop();
             int node =curr[1];
             int cost=curr[0];
+            if(cost>dist[node]) continue;
             for(auto &i:adj[node]){
                 int nbor=i.first;
                 int price=i.second;
