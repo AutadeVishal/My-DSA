@@ -14,6 +14,7 @@ void dikstra(int n,vector<int> &dists, vector<vector<pair<int,int>>> &adj, int n
           for(auto nbor:adj[currNode]){
               int nborNode=nbor.second;
               int edgeCost=nbor.first;
+            if(dists[currNode]<cost) continue;
               if(edgeCost+cost<dists[nborNode]){
                   dists[nborNode]=edgeCost+cost;
                   pq.push({dists[nborNode],nborNode});
