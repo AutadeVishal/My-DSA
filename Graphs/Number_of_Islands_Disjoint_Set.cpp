@@ -14,8 +14,8 @@ class Solution {
             parents[i] = i;
         }
 
-        unordered_map<int, unordered_map<int, int>> toindex; 
-        vector<vector<int>> visited(n, vector<int>(m, 0));
+      //  unordered_map<int, unordered_map<int, int>> toindex; 
+        vector<vector<int>> visited(n, vector<int>(m, -1));
         vector<int> ans;
 
         int count = 0;
@@ -25,9 +25,13 @@ class Solution {
         for (int i = 0; i < size; i++) {
             int row = operators[i][0];
             int col = operators[i][1];
+            if (visited[row][col]!=-1) {
+                ans.push_back(count);
+                continue;
+            }
 
-            visited[row][col] = 1;
-            toindex[row][col] = i;
+            visited[row][col] = i;//put index of curr node
+          //  toindex[row][col] = i;
             count++; 
 
             for (int j = 0; j < 4; j++) {
@@ -35,9 +39,9 @@ class Solution {
                 int newcol = col + nc[j];
 
                 if (newrow >= 0 && newrow < n && newcol >= 0 && newcol < m) {
-                    if (visited[newrow][newcol] == 1) {
+                    if (visited[newrow][newcol] != -1) {
                         int par1 = findParent(i, parents);
-                        int par2 = findParent(toindex[newrow][newcol], parents);
+                        int par2 = findParent(visited[newrow][newcol], parents);
 
                         if (par1 != par2) {
                             parents[par1] = par2;
@@ -53,3 +57,4 @@ class Solution {
         return ans;
     }
 };
+
