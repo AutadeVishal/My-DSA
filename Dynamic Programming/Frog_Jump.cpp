@@ -18,3 +18,23 @@ class Solution {
         return dp[height.size()-1];
     }
 };
+
+
+//top-down
+class Solution {
+  public:
+ 
+  int solve(vector<int>&dp,vector<int>&height,int i){
+      if(i==0) return 0;
+      if(i==1)return abs(height[1]-height[0]);
+      if(dp[i]!=-1) return dp[i];
+      
+      
+      
+      return dp[i]=min(abs(height[i]-height[i-1])+solve(dp,height,i-1),abs(height[i]-height[i-2])+solve(dp,height,i-2));
+  }
+    int minCost(vector<int>& height) {
+         vector<int>dp(height.size(),-1);
+        return solve(dp,height,height.size()-1);
+    }
+};
