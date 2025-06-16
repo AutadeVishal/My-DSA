@@ -1,4 +1,43 @@
-// Memoisation
+//space optimisatoin+tabulation 
+// User function template for C++
+class Solution {
+  public:
+    // calculate the maximum sum with out adjacent
+    int findMaxSum(vector<int>& arr) {
+        int prev2=arr[0];
+        int prev1=max(arr[0],arr[1]);
+        for(int i=2;i<arr.size();i++){
+            
+            int include=arr[i]+prev2;
+            int exclude=prev1;
+            int curr=max(include,exclude);
+            prev2=prev1;
+            prev1=curr;
+        }
+        return prev1;
+    }
+};
+//tabulation
+// User function template for C++
+class Solution {
+  public:
+    // calculate the maximum sum with out adjacent
+    int findMaxSum(vector<int>& arr) {
+        // code here
+        vector<int>dp(arr.size(),0);
+        dp[0]=arr[0];
+        dp[1]=max(arr[0],arr[1]);
+        for(int i=2;i<arr.size();i++){
+            int include=arr[i]+dp[i-2];
+            int exclude=dp[i-1];
+            dp[i]=max(include,exclude);
+        }
+        return dp[arr.size()-1];
+    }
+};
+
+//memoisation
+// User function template for C++
 class Solution {
   public:
     // calculate the maximum sum with out adjacent
@@ -15,23 +54,5 @@ class Solution {
         vector<int>dp(arr.size(),0);
      int x=solve(arr.size()-1,dp,arr);
         return x;
-    }
-};
-
-//tabulation
-// User function template for C++
-class Solution {
-  public:
-    // calculate the maximum sum with out adjacent
-    int findMaxSum(vector<int>& arr) {
-        // code here
-        pair<int,int>p={0,0};
-        for(int i=0;i<arr.size();i++){
-            int left=arr[i]+p.second;
-            int right=max(p.first,p.second);
-            p.first=left;
-            p.second=right;
-        }
-        return max(p.first,p.second);
     }
 };
