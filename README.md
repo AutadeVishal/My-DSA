@@ -1,2 +1,2 @@
-Hello,
-This is My Code snippets which i solved for numerous problems during my Coding Journey.
+Why Solved DSA Solutions on Github?
+Well the reason is  to revise my own soutions which is simple for my understanding and  other what is seen is sold
